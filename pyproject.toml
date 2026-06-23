@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loopback-litmus"
+version = "0.1.0"
+description = "Safe browser-to-localhost reachability checks for local AI agent and MCP control planes."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Ilia Sorokin" }]
+keywords = [
+  "ai agent security",
+  "browser localhost",
+  "localhost security",
+  "local agent scanner",
+  "mcp security",
+  "websocket origin",
+  "websocket security",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Information Technology",
+  "Intended Audience :: System Administrators",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Security",
+  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = []
+
+[project.scripts]
+loopback-litmus = "loopback_litmus.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
