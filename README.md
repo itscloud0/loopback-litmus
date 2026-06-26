@@ -6,6 +6,8 @@ It is not a generic vulnerability scanner or exploit tool. The first version foc
 
 ## Quickstart
 
+Requires Python 3.11 or newer.
+
 From a checkout:
 
 ```bash
@@ -18,6 +20,7 @@ PYTHONPATH=src python3 -m loopback_litmus serve-fixture --case websocket-no-orig
 When installed as a Python package:
 
 ```bash
+python3.11 -m pip install .
 loopback-litmus scan
 loopback-litmus scan --json
 ```
