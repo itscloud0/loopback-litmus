@@ -102,6 +102,8 @@ def parse_ss(output: str) -> list[Listener]:
         if not line.strip():
             continue
         fields = line.split()
+        if not fields or fields[0].upper() != "LISTEN":
+            continue
         local = next((field for field in fields if parse_address_port(field)), None)
         parsed = parse_address_port(local or "")
         if not parsed:

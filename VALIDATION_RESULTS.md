@@ -36,6 +36,8 @@ Verified on 2026-06-22: 9 tests passed.
 
 The fixture tests assert that advisory fixtures classify as `HIGH`, hardened controls classify as `LOW`, JSON reports keep a stable safety shape, and the report declares `executes_commands: false`.
 
+Parser coverage was hardened on 2026-06-27 with representative macOS `lsof` and Linux `ss` listener rows, including wildcard binds, IPv6 loopback binds, missing process attribution, and non-listening `ss` rows that should be ignored.
+
 Live CLI smoke test also passed with these fixtures started together:
 
 - `advisory-mcp-inspector-open`: reported `HIGH`.
@@ -66,6 +68,7 @@ The same run measured one `loopback-litmus` command against 28 manual-equivalent
 - Fixtures are advisory-faithful models, not historical vulnerable binaries.
 - Kubectl and GPT Researcher fixtures intentionally omit command execution and cluster/file access.
 - Ordinary local developer servers can be reachable without being security-relevant; product hints and remediation text must stay conservative.
+- Process attribution can be unavailable when platform tools omit process or PID details; the report leaves those fields unknown rather than guessing.
 - Browser Private Network Access and `0.0.0.0` behavior can change; future browser-harness validation should track that separately.
 
 ## Gate Status

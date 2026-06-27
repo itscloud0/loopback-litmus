@@ -71,10 +71,19 @@ These examples cover the first developer searches this tool is meant to answer:
 
 - A safe probe can prove browser-style reachability and weak gates, not full exploitability.
 - The tool does not execute MCP configs, call MCP tools, run shell commands through services, or send exploit payloads.
-- Process attribution depends on platform tools such as `lsof` or `ss`.
+- Process attribution depends on platform tools such as `lsof` or `ss`, and those tools can omit process or PID details when permissions are limited.
 - Public-network scanning is intentionally not a default workflow.
 - Some local developer servers intentionally expose unauthenticated APIs; risk depends on capability.
 - It does not replace MCP config security scanners, skill scanners, enterprise endpoint inventory, or product-specific CVE remediation.
+
+## Process Attribution Notes
+
+Listener discovery is intentionally conservative:
+
+- macOS uses `lsof -nP -iTCP -sTCP:LISTEN` when available.
+- Linux uses `ss -H -ltnp` when `lsof` is unavailable.
+- `0.0.0.0`, `*`, and `[::]` are treated as all-interface binds and scanned through `127.0.0.1`.
+- Missing process or PID fields are reported as unknown instead of guessed.
 
 ## Comparison
 
