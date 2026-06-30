@@ -58,7 +58,7 @@ The ordinary local samples were a plain HTML dev page, a plain JSON health API, 
 - No fixture classification failures observed.
 - Timings are local workstation measurements and should be treated as workflow-order evidence, not a universal performance claim.
 - Process attribution was not benchmarked because fixed-port fixture targets bypass listener enumeration.
-- Browser-engine behavior for Private Network Access and `0.0.0.0` remains future browser-harness work.
+- Browser-engine behavior is now covered by the local browser harness documented in `README.md` and `VALIDATION_RESULTS.md`. The benchmark still treats browser results as version- and OS-specific evidence, not universal behavior.
 
 ## Gate Status
 

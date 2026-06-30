@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import sys
 
+from .browser_harness import browser_harness_command
 from .fixtures import FIXTURE_CASES, serve_fixture
 from .models import ServiceTarget
 from .ports import KNOWN_AGENT_PORTS, connect_host_for_bind, enumerate_listeners
@@ -15,6 +16,8 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.command == "scan":
         return scan_command(args)
+    if args.command == "browser-harness":
+        return browser_harness_command(args)
     if args.command == "serve-fixture":
         return serve_fixture(args)
     parser.print_help(sys.stderr)
@@ -40,6 +43,18 @@ def build_parser() -> argparse.ArgumentParser:
     fixture.add_argument("--case", required=True, choices=FIXTURE_CASES)
     fixture.add_argument("--host", default="127.0.0.1")
     fixture.add_argument("--port", type=int, default=0)
+
+    harness = subparsers.add_parser("browser-harness", help="run a safe local browser behavior harness")
+    harness.add_argument(
+        "--page-host",
+        default="127.0.0.1",
+        choices=("127.0.0.1", "localhost"),
+        help="host for the harness page; loopback only",
+    )
+    harness.add_argument("--page-port", type=int, default=0, help="port for the harness page")
+    harness.add_argument("--duration", type=float, default=120.0, help="seconds to wait for browser results")
+    harness.add_argument("--output", default="browser-harness-results.json", help="path for browser result JSON")
+    harness.add_argument("--open", action="store_true", help="open the harness page in the default browser")
 
     return parser
 

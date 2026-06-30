@@ -1,8 +1,8 @@
 # Validation Results
 
-Status: `PASS` for advisory-faithful fixture validation and fixture/manual workflow benchmark. Publication remains blocked as noted below.
+Status: `PASS` for advisory-faithful fixture validation, fixture/manual workflow benchmark, and browser-harness validation.
 
-Run recorded: 2026-06-22 15:09 Europe/Amsterdam.
+Fixture and benchmark run recorded: 2026-06-22 15:09 Europe/Amsterdam. Browser harness validation recorded: 2026-06-30.
 
 ## Scope
 
@@ -38,6 +38,23 @@ The fixture tests assert that advisory fixtures classify as `HIGH`, hardened con
 
 Parser coverage was hardened on 2026-06-27 with representative macOS `lsof` and Linux `ss` listener rows, including wildcard binds, IPv6 loopback binds, missing process attribution, and non-listening `ss` rows that should be ignored.
 
+Browser harness validation was added on 2026-06-30 for the benchmark limitation around browser Private Network Access and `0.0.0.0` behavior. The harness uses only local safe CORS `GET /probe` requests, starts no vulnerable product, executes no commands, reads no credentials, and performs no public-network scan.
+
+Verified command:
+
+```bash
+PYTHONPATH=src python3 -m loopback_litmus browser-harness --duration 30 --output /tmp/loopback-litmus-browser-harness.json
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --headless=new --disable-gpu --virtual-time-budget=5000 --dump-dom http://127.0.0.1:<harness-port>/
+```
+
+Verified environment:
+
+- macOS `15.5` build `24F74`.
+- Google Chrome `149.0.7827.201`.
+- Headless user agent reported `HeadlessChrome/149.0.0.0`.
+
+Observed result: Chrome returned HTTP `200` for `localhost -> 127.0.0.1`, `127.0.0.1 -> 127.0.0.1`, `127.0.0.1 -> 0.0.0.0`, and `0.0.0.0 -> 0.0.0.0` harness cases. The result is version- and OS-specific evidence only; it is not a claim that all Chromium-family browsers, future Chrome versions, or non-Chromium browsers behave the same way.
+
 Live CLI smoke test also passed with these fixtures started together:
 
 - `advisory-mcp-inspector-open`: reported `HIGH`.
@@ -69,11 +86,11 @@ The same run measured one `loopback-litmus` command against 28 manual-equivalent
 - Kubectl and GPT Researcher fixtures intentionally omit command execution and cluster/file access.
 - Ordinary local developer servers can be reachable without being security-relevant; product hints and remediation text must stay conservative.
 - Process attribution can be unavailable when platform tools omit process or PID details; the report leaves those fields unknown rather than guessing.
-- Browser Private Network Access and `0.0.0.0` behavior can change; future browser-harness validation should track that separately.
+- Browser Private Network Access and `0.0.0.0` behavior can change; the browser harness records tested browser/version/OS behavior instead of treating one run as a universal rule.
 
 ## Gate Status
 
 - Advisory-fixture validation: `PASS`, citing the four fixtures and fixture tests above.
 - Full benchmark: `PASS`, citing `BENCHMARK_RESULTS.md`.
 - Discoverability: `PASS`, citing `DISCOVERABILITY.md`, `RELEASE_NOTES.md`, `README.md`, and `pyproject.toml`.
-- Publication: `READY_FOR_PRIVATE_PUBLISH`; public release remains blocked by the public-repo cooldown until 2026-06-25 19:56 Europe/Amsterdam.
+- Publication: `PUBLIC_V0.1.0_RELEASED`, citing the public GitHub release.

@@ -14,6 +14,7 @@ From a checkout:
 PYTHONPATH=src python3 -m loopback_litmus scan
 PYTHONPATH=src python3 -m loopback_litmus scan --port 18789
 PYTHONPATH=src python3 -m loopback_litmus scan --known-agent-ports --json
+PYTHONPATH=src python3 -m loopback_litmus browser-harness --open --output browser-harness-results.json
 PYTHONPATH=src python3 -m loopback_litmus serve-fixture --case websocket-no-origin --port 18789
 ```
 
@@ -58,6 +59,26 @@ PYTHONPATH=src python3 -m loopback_litmus scan --port 18781
 
 The advisory fixtures are safe models of public vulnerability patterns. They prove detection of missing WebSocket `Origin` enforcement and unauthenticated MCP-style `initialize` reachability without launching real vulnerable products, executing commands, or sending exploit payloads.
 
+## Browser Harness
+
+Use the browser harness when you need reproducible local evidence for browser fetch behavior around `localhost`, `127.0.0.1`, and `0.0.0.0`:
+
+```bash
+PYTHONPATH=src python3 -m loopback_litmus browser-harness --open --output browser-harness-results.json
+```
+
+The harness serves one page on loopback and two safe target endpoints: one bound to `127.0.0.1` and one bound to `0.0.0.0`. The page performs CORS `GET /probe` requests, records status, `Origin`, `Sec-Fetch-*` headers, and target bind labels, then writes JSON results back to the local harness server.
+
+Safety limits:
+
+- no command execution
+- no credential access
+- no exploit payloads
+- no public-network scanning
+- the all-interface endpoint only serves the static probe target during the harness run
+
+Latest local validation: Google Chrome `149.0.7827.201` on macOS `15.5` returned HTTP `200` for all four harness cases: `localhost` to loopback, `127.0.0.1` to loopback, `127.0.0.1` to an all-interface bind, and `0.0.0.0` to an all-interface bind. Treat this as a browser/version/OS data point, not a universal browser guarantee.
+
 ## Example Reports To Look For
 
 These examples cover the first developer searches this tool is meant to answer:
@@ -90,6 +111,7 @@ Listener discovery is intentionally conservative:
 - Browser localhost port scanners find open ports. `loopback-litmus` adds AI/MCP hints, WebSocket `Origin` evidence, MCP initialization checks, and remediation text.
 - MCP security scanners inspect MCP configs, tools, prompts, or remote URLs. `loopback-litmus` checks already-running local services and avoids executing untrusted MCP configuration.
 - Manual `lsof`, `curl`, and WebSocket clients can test localhost ports, but they do not produce a repeatable browser-to-localhost risk report for AI agent and MCP control planes.
+- Browser DevTools can test individual fetch cases, but the harness records a repeatable JSON result for `localhost`, `127.0.0.1`, and `0.0.0.0` behavior.
 - Enterprise local-agent discovery can inventory managed endpoints. `loopback-litmus` is a local open-source developer check with fixture-backed evidence and no hosted backend.
 
 ## Development
