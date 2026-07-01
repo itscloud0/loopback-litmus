@@ -120,3 +120,14 @@ Listener discovery is intentionally conservative:
 PYTHONPATH=src python3 -m unittest discover -s tests
 PYTHONPATH=src python3 scripts/benchmark.py --output BENCHMARK_RESULTS.md
 ```
+
+Distribution smoke check before publishing:
+
+```bash
+python3.11 -m pip install --upgrade build
+python3.11 -m build --sdist --wheel
+python3.11 -m venv /tmp/loopback-litmus-package-smoke
+source /tmp/loopback-litmus-package-smoke/bin/activate
+python -m pip install dist/*.whl
+loopback-litmus --help
+```
