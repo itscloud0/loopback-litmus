@@ -64,4 +64,4 @@ The ordinary local samples were a plain HTML dev page, a plain JSON health API, 
 
 - Benchmark: `PASS`, citing this benchmark run and the scenarios above.
 - Discoverability: `PASS`, citing `DISCOVERABILITY.md`, `RELEASE_NOTES.md`, `README.md`, and `pyproject.toml`.
-- Publication: `READY_FOR_PRIVATE_PUBLISH`; public release remains blocked by the public-repo cooldown until 2026-06-25 19:56 Europe/Amsterdam.
+- Publication: `PUBLIC_V0.1.0_RELEASED`, citing the public GitHub release.
