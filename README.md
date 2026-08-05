@@ -26,6 +26,15 @@ loopback-litmus scan
 loopback-litmus scan --json
 ```
 
+From the public `v0.1.0` tag without a source checkout (PyPI publication is still pending):
+
+```bash
+pipx install "git+https://github.com/itscloud0/loopback-litmus@v0.1.0"
+loopback-litmus scan
+
+uvx --from "git+https://github.com/itscloud0/loopback-litmus@v0.1.0" loopback-litmus scan --known-agent-ports
+```
+
 ## What It Checks
 
 - Listening loopback and all-interface TCP services on macOS and Linux.

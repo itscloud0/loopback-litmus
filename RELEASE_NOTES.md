@@ -30,4 +30,13 @@ Source checkout:
 PYTHONPATH=src python3 -m loopback_litmus scan
 ```
 
-Package install command will be added after PyPI publication.
+No-checkout install from the public tag is available while PyPI publication is pending:
+
+```bash
+pipx install "git+https://github.com/itscloud0/loopback-litmus@v0.1.0"
+loopback-litmus scan
+
+uvx --from "git+https://github.com/itscloud0/loopback-litmus@v0.1.0" loopback-litmus scan --known-agent-ports
+```
+
+PyPI publication remains pending release credentials and publication-gate verification.

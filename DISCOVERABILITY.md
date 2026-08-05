@@ -84,7 +84,7 @@ Concrete launch/search surfaces:
 
 - GitHub repository search through name, description, README, topics, and release notes.
 - PyPI package search through package name, description, classifiers, and keywords.
-- `uvx`/`pipx` usage once the package is available on PyPI.
+- Tag-pinned `uvx`/`pipx` usage from GitHub is available now; PyPI package search and unversioned `uvx`/`pipx` usage remain pending publication.
 - Security and MCP developer communities discussing local MCP server exposure, browser-to-localhost attacks, WebSocket Origin validation, and MCP security scanners.
 - Advisory-faithful fixture demos that show before/after behavior without running historical vulnerable products or exploit payloads.
 
