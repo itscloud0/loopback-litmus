@@ -8,6 +8,21 @@ It is not a generic vulnerability scanner or exploit tool. The first version foc
 
 Requires Python 3.11 or newer.
 
+To try the public `v0.1.0` release without cloning the repository (PyPI
+publication is still pending), install the CLI from its tag:
+
+```bash
+python3.11 -m pip install "git+https://github.com/itscloud0/loopback-litmus@v0.1.0"
+loopback-litmus scan --known-agent-ports
+```
+
+For an isolated managed tool environment, use `uv`:
+
+```bash
+uv tool install "git+https://github.com/itscloud0/loopback-litmus@v0.1.0"
+loopback-litmus scan --known-agent-ports
+```
+
 From a checkout:
 
 ```bash
@@ -26,7 +41,8 @@ loopback-litmus scan
 loopback-litmus scan --json
 ```
 
-From the public `v0.1.0` tag without a source checkout (PyPI publication is still pending):
+Other no-checkout options from the public `v0.1.0` tag are `pipx` and one-off
+`uvx`:
 
 ```bash
 pipx install "git+https://github.com/itscloud0/loopback-litmus@v0.1.0"
