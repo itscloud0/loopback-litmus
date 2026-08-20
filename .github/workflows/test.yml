@@ -44,3 +44,17 @@ jobs:
           python -m pip install dist/*.whl
           loopback-litmus --help
           python -c "import loopback_litmus"
+
+  public-install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install immutable public release
+        run: python -m pip install "git+https://github.com/itscloud0/loopback-litmus@26c01e8"
+      - name: Smoke-test installed CLI
+        run: |
+          python -c "import loopback_litmus; assert loopback_litmus.__version__ == '0.1.0'"
+          loopback-litmus --help
+          loopback-litmus scan --known-agent-ports --json
