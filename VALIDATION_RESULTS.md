@@ -8,6 +8,12 @@ Fixture and benchmark run recorded: 2026-06-22 15:09 Europe/Amsterdam. Browser h
 
 Validation used safe local fixtures derived from public advisory behavior. It did not run vulnerable product versions, use real credentials, touch a Kubernetes cluster, execute MCP configs, invoke tools, spawn commands through a service, or send exploit payloads.
 
+## 2026-08-31 Workflow supply-chain hardening
+
+The GitHub Actions workflow now pins all five external action call sites to full commit SHAs: `actions/checkout` v4 at `11d5960a326750d5838078e36cf38b85af677262` and `actions/setup-python` v5 at `a26af69be951a213d495a4c3e4e4022e16d87065`. The tag-to-commit mappings were verified with `git ls-remote` before editing. A regression test asserts the complete workflow wiring remains pinned and cannot silently return to mutable version tags.
+
+This keeps the public unit, package, and immutable-release install jobs reproducible for maintainers evaluating the local AI-agent and MCP security fixtures. It does not change the CLI, fixture behavior, package version, or release tag.
+
 ## External Advisory Patterns
 
 | Pattern | Source | Fixture | Ecosystem | Safe behavior modeled | Expected result |
