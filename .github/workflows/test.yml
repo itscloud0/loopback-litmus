@@ -58,3 +58,13 @@ jobs:
           python -c "import loopback_litmus; assert loopback_litmus.__version__ == '0.1.0'"
           loopback-litmus --help
           loopback-litmus scan --known-agent-ports --json
+      - name: Install immutable public source archive
+        shell: bash
+        run: |
+          python -m venv .venv-archive-smoke
+          source .venv-archive-smoke/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install "https://github.com/itscloud0/loopback-litmus/archive/26c01e802e33ca4b285e1f4ba1149d0f20b50135.tar.gz"
+          python -c "import loopback_litmus; assert loopback_litmus.__version__ == '0.1.0'"
+          loopback-litmus --help
+          loopback-litmus scan --known-agent-ports --json

@@ -16,6 +16,14 @@ python3.11 -m pip install "git+https://github.com/itscloud0/loopback-litmus@v0.1
 loopback-litmus scan --known-agent-ports
 ```
 
+If Git is not available, install the same public release from GitHub's
+immutable source archive instead:
+
+```bash
+python3.11 -m pip install "https://github.com/itscloud0/loopback-litmus/archive/26c01e802e33ca4b285e1f4ba1149d0f20b50135.tar.gz"
+loopback-litmus scan --known-agent-ports
+```
+
 For an isolated managed tool environment, use `uv`:
 
 ```bash
