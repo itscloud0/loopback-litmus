@@ -14,6 +14,19 @@ The GitHub Actions workflow now pins all five external action call sites to full
 
 This keeps the public unit, package, and immutable-release install jobs reproducible for maintainers evaluating the local AI-agent and MCP security fixtures. It does not change the CLI, fixture behavior, package version, or release tag.
 
+## 2026-09-20 Release-asset onboarding
+
+The README now exposes the exact `v0.1.0` wheel and source-distribution URLs before the Git and immutable-archive fallbacks. The public-install workflow and onboarding tests smoke both release assets without requiring a repository checkout. This gives developers a checkout-free install path for the released CLI while PyPI publication remains pending.
+
+Verified on 2026-09-20:
+
+- 21 Python tests passed with `PYTHONPATH=src python3 -m unittest discover -s tests`.
+- `python3 -m compileall -q src tests`, workflow YAML parsing, and `git diff --check` passed.
+- Both public release URLs returned HTTP `200`.
+- Separate clean virtual environments installed the public wheel and sdist; each passed `loopback-litmus --help` and the `0.1.0` import/version smoke.
+
+This is installation and product-readiness evidence, not confirmed adoption.
+
 ## External Advisory Patterns
 
 | Pattern | Source | Fixture | Ecosystem | Safe behavior modeled | Expected result |

@@ -9,7 +9,21 @@ It is not a generic vulnerability scanner or exploit tool. The first version foc
 Requires Python 3.11 or newer.
 
 To try the public `v0.1.0` release without cloning the repository (PyPI
-publication is still pending), install the CLI from its tag:
+publication is still pending), install the exact prebuilt wheel:
+
+```bash
+python3.11 -m pip install "https://github.com/itscloud0/loopback-litmus/releases/download/v0.1.0/loopback_litmus-0.1.0-py3-none-any.whl"
+loopback-litmus scan --known-agent-ports
+```
+
+If a wheel install is not suitable, install the matching source distribution:
+
+```bash
+python3.11 -m pip install "https://github.com/itscloud0/loopback-litmus/releases/download/v0.1.0/loopback_litmus-0.1.0.tar.gz"
+loopback-litmus scan --known-agent-ports
+```
+
+If the release assets are unavailable, install the CLI from its tag:
 
 ```bash
 python3.11 -m pip install "git+https://github.com/itscloud0/loopback-litmus@v0.1.0"
